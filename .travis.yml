@@ -4,6 +4,8 @@ before_script:
 script:
 - ./grailsw refresh-dependencies
 - ./grailsw war
+- git config --global user.email "denis.shybeko@gmail.com"
+- git config --global user.name "Denis Shybeko"
 - git checkout master
 - git add webapps/badmin.war
 - git commit -m 'added war file'
