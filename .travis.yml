@@ -6,3 +6,10 @@ before_script:
 script:
  - ./grailsw refresh-dependencies
  - ./grailsw war
+
+deploy:
+  provider: openshift
+  user: denis.shybeko@gmail.com
+  password: CHuVNCjc
+  domain: bboards
+  app: badmin
