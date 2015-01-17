@@ -5,6 +5,7 @@ script:
 - ./grailsw refresh-dependencies
 - ./grailsw war
 - git checkout master
+- git add webapps/badmin.web
 deploy:
   provider: openshift
   user: denis.shybeko@gmail.com
