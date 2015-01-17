@@ -83,7 +83,7 @@
 	<body>
 
 		<div id="page-body" role="main">
-			<h1>Welcome</h1>
+			<h1>Welcome (Updated with CI)</h1>
 
 			<div id="controller-list" role="navigation">
 				<g:link controller="board">View boards</g:link>
