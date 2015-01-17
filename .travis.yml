@@ -1,12 +1,4 @@
 language: groovy
-jdk: jdk7
-
 script:
  - ./grailsw refresh-dependencies
  - ./grailsw war
-
- deploy:
-  provider: openshift
-  user: denis.shybeko@gmail.com
-  password: CHuVNCjc
-  app: badmin
