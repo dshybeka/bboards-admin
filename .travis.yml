@@ -4,6 +4,7 @@ before_script:
 script:
 - ./grailsw refresh-dependencies
 - ./grailsw war
+- git checkout master
 deploy:
   provider: openshift
   user: denis.shybeko@gmail.com
