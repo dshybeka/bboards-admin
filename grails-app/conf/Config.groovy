@@ -102,7 +102,7 @@ log4j.main = {
     appenders {
         console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
 
-        file name:'file', file:'logs/bboards.log'
+        file name:'file', file:'logs/badmin.log'
     }
 
     debug 'org.bboards'
