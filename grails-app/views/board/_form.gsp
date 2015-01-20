@@ -1,6 +1,6 @@
 <%@ page import="org.bboards.admin.domains.Board" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=places&sensor=false"></script>
 
 
 <div class="fieldcontain ${hasErrors(bean: boardInstance, field: 'additionalDescription', 'error')} ">
@@ -215,6 +215,7 @@
 
 </div>
 
+<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 <div id="map-canvas"></div>
 
 

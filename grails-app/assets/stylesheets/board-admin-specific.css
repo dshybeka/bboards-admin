@@ -3,3 +3,10 @@
     width: 500px;
     margin-top: 50px;
 }
+
+#pac-input {
+    height: 27px;
+    border-radius: 10px;
+    font-size: small;
+    width: 250px;
+}
