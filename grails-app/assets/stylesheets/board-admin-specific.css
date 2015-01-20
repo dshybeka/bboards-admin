@@ -10,3 +10,8 @@
     font-size: small;
     width: 250px;
 }
+
+.list-type-none {
+    list-style-type: none;
+}
+

@@ -22,7 +22,9 @@ $(document).ready(function() {
             var curLat = $positionLat.val();
             var curLng = $positionLng.val();
             var curZoom = $positionZoom.val();
-            if (curLat.trim().length == 0 || curLng.trim().length == 0 || curZoom.trim().length == 0  ) {
+            if ((curLat || curLat.trim().length == 0) ||
+                (curLng || curLng.trim().length == 0) ||
+                (curZoom || curZoom.trim().length == 0)  ) {
                 curLat = minskLat;
                 curLng = minskLng;
                 curZoom = defaultZoom;
@@ -33,7 +35,8 @@ $(document).ready(function() {
             var map = new google.maps.Map(document.getElementById('map-canvas'),
                 mapOptions);
 
-            if (curLat.trim().length !== 0 && curLng.trim().length !== 0  ) {
+            if ((curLat || curLat.trim().length !== 0) &&
+                (curLng || curLng.trim().length !== 0 ) ) {
                 self.placeMarker(map, new google.maps.LatLng(curLat, curLng));
             }
 

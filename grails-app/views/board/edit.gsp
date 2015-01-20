@@ -2,18 +2,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="slate">
 		<g:set var="entityName" value="${message(code: 'board.label', default: 'Board')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#edit-board" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
+		<div class="navbar navbar-default">
+			<div class="navbar-collapse collapse navbar-responsive-collapse">
+				<ul class="nav navbar-nav">
+					<li><a  href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+					<li><g:link  action="index">Board list</g:link></li>
+					<li><g:link  action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				</ul>
+			</div>
 		</div>
 		<div id="edit-board" class="content scaffold-edit" role="main">
 			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
@@ -27,15 +28,20 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:boardInstance, action:'update']" method="PUT" >
+			<g:form url="[resource:boardInstance, action:'update']" method="PUT" class="form-horizontal col-lg-6" >
 				<g:hiddenField name="version" value="${boardInstance?.version}" />
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+					<g:actionSubmit class="btn btn-success" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 				</fieldset>
 			</g:form>
+			<div class="col-lg-6">
+				<input id="pac-input" class="form-control" type="text" placeholder="Search Box">
+
+				<div id="map-canvas"></div>
+			</div>
 		</div>
 	<asset:javascript src="board-special/boardmap-edit"/>
 	</body>
