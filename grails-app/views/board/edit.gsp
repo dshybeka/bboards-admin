@@ -37,5 +37,6 @@
 				</fieldset>
 			</g:form>
 		</div>
+	<asset:javascript src="board-special/boardmap-edit"/>
 	</body>
 </html>

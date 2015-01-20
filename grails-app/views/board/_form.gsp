@@ -224,56 +224,5 @@
 
 <div id="map-canvas"></div>
 
-<script>
-	var map;
-	function initialize() {
 
-		var curMarker = null;
-
-		var curLat = $('#position-lat').val();
-		var curLng = $('#position-lng').val();
-		var curZoom = $('#position-zoom').val();
-		if (curLat.trim().length == 0 || curLng.trim().length == 0 || curZoom.trim().length == 0  ) {
-			curLat = 53.9;
-			curLng = 27.5666667;
-			curZoom = 11;
-		}
-		var mapOptions = {
-			zoom: +curZoom,
-			center: new google.maps.LatLng(53.9, 27.5666667)
-		};
-		map = new google.maps.Map(document.getElementById('map-canvas'),
-				mapOptions);
-		if (curLat.trim().length !== 0 && curLng.trim().length !== 0  ) {
-			placeMarker(new google.maps.LatLng(curLat, curLng));
-		}
-
-		google.maps.event.addListener(map, 'click', function(event) {
-
-			placeMarker(event.latLng);
-			$('#position-lat').val(event.latLng.k );
-			$('#position-lng').val(event.latLng.D );
-			$('#position-zoom').val(map.getZoom());
-		});
-
-		google.maps.event.addListener(map, 'zoom_changed', function() {
-			var zoomLevel = map.getZoom();
-			$('#position-zoom').val(zoomLevel);
-		});
-
-		function placeMarker(location) {
-			if (curMarker != null) {
-				curMarker.setMap(null);
-			}
-			curMarker = new google.maps.Marker({
-				position: location,
-				map: map
-			});
-		};
-
-	}
-
-	google.maps.event.addDomListener(window, 'load', initialize);
-
-</script>
 
