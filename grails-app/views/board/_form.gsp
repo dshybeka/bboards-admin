@@ -1,5 +1,13 @@
 <%@ page import="org.bboards.admin.domains.Board" %>
-
+<style>
+ #map-canvas {
+	height: 500px;
+	width: 500px;
+	margin-top: 50px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
 
 <div class="fieldcontain ${hasErrors(bean: boardInstance, field: 'additionalDescription', 'error')} ">
@@ -79,7 +87,7 @@
 		<g:message code="mapPosition.label" default="Map Position lat" />
 		
 	</label>
-	<g:field type="number" name="mapPosition.lat" value="${boardInstance.mapPosition?.lat}" />
+	<g:field id="position-lat" type="text" name="mapPosition.lat" value="${boardInstance.mapPosition?.lat}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: boardInstance, field: 'mapPosition', 'error')} ">
@@ -87,15 +95,14 @@
 		<g:message code="mapPosition.label" default="Map Position lng" />
 
 	</label>
-	<g:field type="number" name="mapPosition.lng" value="${boardInstance.mapPosition?.lng}" />
+	<g:field id="position-lng" type="text" name="mapPosition.lng" value="${boardInstance.mapPosition?.lng}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: boardInstance, field: 'mapPosition', 'error')} ">
 	<label for="mapPosition">
 		<g:message code="mapPosition.label" default="Map Position zoom" />
-
 	</label>
-	<g:select id="zoom" name="mapPosition.zoom" from="${org.bboards.admin.domains.enums.DisplayZoom}" value="${boardInstance?.mapPosition?.zoom}" />
+	<g:field id="position-zoom" type="number" name="mapPosition.zoom" value="${boardInstance.mapPosition?.zoom}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: boardInstance, field: 'minRentDuration', 'error')} ">
@@ -214,4 +221,59 @@
 	<g:textField name="weekdayFlow" value="${boardInstance?.weekdayFlow}" />
 
 </div>
+
+<div id="map-canvas"></div>
+
+<script>
+	var map;
+	function initialize() {
+
+		var curMarker = null;
+
+		var curLat = $('#position-lat').val();
+		var curLng = $('#position-lng').val();
+		var curZoom = $('#position-zoom').val();
+		if (curLat.trim().length == 0 || curLng.trim().length == 0 || curZoom.trim().length == 0  ) {
+			curLat = 53.9;
+			curLng = 27.5666667;
+			curZoom = 11;
+		}
+		var mapOptions = {
+			zoom: +curZoom,
+			center: new google.maps.LatLng(53.9, 27.5666667)
+		};
+		map = new google.maps.Map(document.getElementById('map-canvas'),
+				mapOptions);
+		if (curLat.trim().length !== 0 && curLng.trim().length !== 0  ) {
+			placeMarker(new google.maps.LatLng(curLat, curLng));
+		}
+
+		google.maps.event.addListener(map, 'click', function(event) {
+
+			placeMarker(event.latLng);
+			$('#position-lat').val(event.latLng.k );
+			$('#position-lng').val(event.latLng.D );
+			$('#position-zoom').val(map.getZoom());
+		});
+
+		google.maps.event.addListener(map, 'zoom_changed', function() {
+			var zoomLevel = map.getZoom();
+			$('#position-zoom').val(zoomLevel);
+		});
+
+		function placeMarker(location) {
+			if (curMarker != null) {
+				curMarker.setMap(null);
+			}
+			curMarker = new google.maps.Marker({
+				position: location,
+				map: map
+			});
+		};
+
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
 
