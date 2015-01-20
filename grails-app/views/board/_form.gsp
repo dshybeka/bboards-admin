@@ -1,11 +1,4 @@
 <%@ page import="org.bboards.admin.domains.Board" %>
-<style>
- #map-canvas {
-	height: 500px;
-	width: 500px;
-	margin-top: 50px;
-}
-</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
