@@ -22,9 +22,9 @@ $(document).ready(function() {
             var curLat = $positionLat.val();
             var curLng = $positionLng.val();
             var curZoom = $positionZoom.val();
-            if ((curLat || curLat.trim().length == 0) ||
-                (curLng || curLng.trim().length == 0) ||
-                (curZoom || curZoom.trim().length == 0)  ) {
+            if ((curLat === undefined || curLat.trim().length == 0) ||
+                (curLng === undefined || curLng.trim().length == 0) ||
+                (curZoom === undefined || curZoom.trim().length == 0)  ) {
                 curLat = minskLat;
                 curLng = minskLng;
                 curZoom = defaultZoom;
