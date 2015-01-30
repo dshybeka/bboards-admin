@@ -19,6 +19,16 @@ class BoardController {
         respond boardInstance
     }
 
+
+    def showFromParams() {
+
+        assert params.boardId, "Board id should be presented"
+
+        def boardInstance = Board.get(params.boardId)
+
+        render view: "show", model: [boardInstance: boardInstance]
+    }
+
     def create() {
         respond new Board(params)
     }
@@ -49,6 +59,7 @@ class BoardController {
     }
 
     def edit(Board boardInstance) {
+        log.info "Show edit page for board: ${boardInstance?.id}"
         respond boardInstance
     }
 

@@ -28,7 +28,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:boardInstance, action:'update']" method="PUT" class="form-horizontal col-lg-6" >
+			<g:form url="[resource:boardInstance, action:'update']" method="PUT"  class="form-horizontal col-lg-6" >
 				<g:hiddenField name="version" value="${boardInstance?.version}" />
 				<fieldset class="form">
 					<g:render template="form"/>
@@ -37,6 +37,7 @@
 					<g:actionSubmit class="btn btn-success" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 				</fieldset>
 			</g:form>
+
 			<div class="col-lg-6">
 				<input id="pac-input" class="form-control" type="text" placeholder="Search Box">
 
