@@ -1,6 +1,7 @@
 package org.bboards.admin.org.bboards.admin
 
 import grails.test.mixin.TestFor
+import org.bboards.admin.PhotoController
 import spock.lang.Specification
 
 /**

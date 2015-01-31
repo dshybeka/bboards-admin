@@ -123,3 +123,5 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+bboard.photo.storage.home = "/tmp/board-photos"

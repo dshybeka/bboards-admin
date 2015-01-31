@@ -1,4 +1,4 @@
-package org.bboards.admin.org.bboards.admin
+package org.bboards.admin
 
 import grails.transaction.Transactional
 import org.bboards.admin.domains.Board
@@ -7,6 +7,9 @@ import org.bboards.admin.domains.Photo
 @Transactional(readOnly = true)
 class PhotoController {
 
+    def photoStoreService
+
+    // TODO: refactor to use DRY principe
     @Transactional
     def saveDayPhoto() {
 
@@ -17,25 +20,15 @@ class PhotoController {
         // TODO: check sql executed for operation
         Board photoOwnerBoard = Board.load(params.boardId)
 
-        Photo photo = new Photo()
-        photo.path = "/tmp/day_${params.boardId}"
-        photo.url = "/board/${params.boardId}/dayPhoto"
-        photoOwnerBoard.dayPhoto = photo
+        assert photoOwnerBoard, "Board should exist"
+
+        def file = request.getFile('dayPhoto')
+        photoOwnerBoard.dayPhoto = photoStoreService.saveDayPhotoFile(params.boardId, file)
         photoOwnerBoard.save(flush: true)
-        log.info "photoOwnerBoard.dayPhoto " + photoOwnerBoard.dayPhoto
 
-        if (!photoOwnerBoard.hasErrors() && !photoOwnerBoard.dayPhoto.hasErrors()) {
-
-            def file = request.getFile('dayPhoto')
-
-            log.info "Store following file: ${file}"
-
-            def storeFile = new File(photo.path)
-//        File fileDest = new File(storeFile,"path/to/some_folder")
-            file.transferTo(storeFile)
-
-        } else {
+        if (photoOwnerBoard.hasErrors() || photoOwnerBoard.dayPhoto.hasErrors()) {
             log.warn "Cannot create not about new day photo: ${photoOwnerBoard.errors}, ${photoOwnerBoard.dayPhoto.errors}"
+            flash.message = "Error while creating day photo for board: ${params.boardId}"
         }
         redirect(controller: "board", action: "showFromParams", params: [boardId: photoOwnerBoard.id.toString()])
     }
@@ -50,24 +43,15 @@ class PhotoController {
         // TODO: check sql executed for operation
         Board photoOwnerBoard = Board.load(params.boardId)
 
-        Photo photo = new Photo()
-        photo.path = "/tmp/night_${params.boardId}"
-        photo.url = "/board/${params.boardId}/nightPhoto"
-        photoOwnerBoard.nightPhoto = photo
+        assert photoOwnerBoard, "Board should exist"
+
+        def file = request.getFile('nightPhoto')
+        photoOwnerBoard.nightPhoto = photoStoreService.saveNightPhotoFile(params.boardId, file)
         photoOwnerBoard.save(flush: true)
-        log.info "photoOwnerBoard.nightPhoto " + photoOwnerBoard.nightPhoto
 
-        if (!photoOwnerBoard.hasErrors() && !photoOwnerBoard.nightPhoto.hasErrors()) {
-
-            def file = request.getFile('nightPhoto')
-
-            log.info "Store following file: ${file}"
-
-            def storeFile = new File(photo.path)
-            file.transferTo(storeFile) // TODO: add logic for generating filesystem protected paths
-
-        } else {
-            log.warn "Cannot create not about new night photo: ${photoOwnerBoard.errors}, ${photoOwnerBoard.nightPhoto.errors}"
+        if (photoOwnerBoard.hasErrors() || photoOwnerBoard.nightPhoto.hasErrors()) {
+            log.warn "Cannot create not about new day photo: ${photoOwnerBoard.errors}, ${photoOwnerBoard.nightPhoto.errors}"
+            flash.message = "Error while creating day photo for board: ${params.boardId}"
         }
         redirect(controller: "board", action: "showFromParams", params: [boardId: photoOwnerBoard.id.toString()])
     }
@@ -79,8 +63,6 @@ class PhotoController {
         assert params.boardId, "Board id should be presented"
 
         Board board = Board.get(params.boardId)
-
-        log.info "board.dayPhoto " + board.dayPhoto
 
         if (board.dayPhoto) {
 
