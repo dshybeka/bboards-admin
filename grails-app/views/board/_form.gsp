@@ -16,7 +16,7 @@
 </div>
 
 <div class="fieldcontain form-group ${hasErrors(bean: boardInstance, field: 'mapPosition', 'error')} ">
-    <label for="mapPosition" class="col-lg-2 control-label">
+    <label for="position-lng" class="col-lg-2 control-label">
         <g:message code="mapPosition.label" default="Map Position lng"/>
 
     </label>
@@ -28,13 +28,35 @@
 </div>
 
 <div class="fieldcontain form-group ${hasErrors(bean: boardInstance, field: 'mapPosition', 'error')} ">
-    <label for="mapPosition" class="col-lg-2 control-label">
+    <label for="position-zoom" class="col-lg-2 control-label">
         <g:message code="mapPosition.label" default="Map Position zoom"/>
     </label>
 
     <div class="col-lg-10">
         <g:field class="form-control" id="position-zoom" type="number" name="mapPosition.zoom"
                  value="${boardInstance.mapPosition?.zoom}"/>
+    </div>
+</div>
+
+<div class="fieldcontain form-group ${hasErrors(bean: boardInstance, field: 'address', 'error')} ">
+    <label for="address-full" class="col-lg-2 control-label">
+        Адресс
+    </label>
+
+    <div class="col-lg-10">
+        <g:field class="form-control" id="address-full" type="text" name="address.fullAddress"
+                 value="${boardInstance.address?.fullAddress}"/>
+    </div>
+</div>
+
+<div class="fieldcontain form-group ${hasErrors(bean: boardInstance, field: 'address', 'error')} ">
+    <label for="address-district" class="col-lg-2 control-label">
+        Район
+    </label>
+
+    <div class="col-lg-10">
+        <g:field class="form-control" id="distinct-district" type="text" name="address.district"
+                 value="${boardInstance.address?.district}"/>
     </div>
 </div>
 

@@ -66,9 +66,6 @@ class BoardController {
     @Transactional
     def update(Board boardInstance) {
 
-        println "kalina malina" + params
-        println "kalina malinssss " + boardInstance.mapPosition.lng + " " + boardInstance.mapPosition.zoom
-
         if (boardInstance == null) {
             notFound()
             return
@@ -80,8 +77,6 @@ class BoardController {
         }
 
         boardInstance.save flush:true
-
-        println "errors " + boardInstance.mapPosition?.errors
 
         request.withFormat {
             form multipartForm {
