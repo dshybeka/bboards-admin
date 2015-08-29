@@ -12,7 +12,6 @@
 		<div class="navbar navbar-default">
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
-					<li><a  href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 					<li><g:link  action="index">Board list</g:link></li>
 					<li><g:link  action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 				</ul>

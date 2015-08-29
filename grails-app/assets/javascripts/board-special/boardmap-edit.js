@@ -68,8 +68,8 @@ $(document).ready(function() {
             google.maps.event.addListener(map, 'click', function(event) {
 
                 self.placeMarker(map, event.latLng);
-                $positionLat.val(event.latLng.k );
-                $positionLng.val(event.latLng.D );
+                $positionLat.val(event.latLng.K );
+                $positionLng.val(event.latLng.G );
                 $positionZoom.val(map.getZoom());
             });
 

@@ -18,7 +18,7 @@
         <div class="navbar-collapse collapse" id="navbar-main">
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">One day you will see here login btn</a></li>
+                <li><a href="${createLink(uri: '/login/auth')}" class="navbar-brand">Login</a></li>
             </ul>
 
         </div>

@@ -1,13 +1,22 @@
 package org.bboards.admin.domains
 
 import net.spantree.mongo.types.jodatime.LocalDateTimeType
+import org.bboards.admin.domains.enums.OrderType
+import org.bson.types.ObjectId
 import org.joda.time.LocalDateTime
 
-class Timetable {
+class Order {
+
+    ObjectId id
+
+    Board board
+
+    User customer
 
     LocalDateTime startDate
-
     LocalDateTime endDate
+
+    OrderType orderType
 
     static mapWith = "mongo"
 
@@ -17,8 +26,12 @@ class Timetable {
     }
 
     static constraints = {
-        startDate nullable: true
-        endDate nullable: true
+        startDate nullable: false
+        endDate nullable: false
     }
 
+    static hasOne = {
+        board: Board
+        user: User
+    }
 }

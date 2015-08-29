@@ -11,7 +11,7 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
-grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
+grails.project.groupId = org.boards.admin // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
@@ -109,6 +109,11 @@ log4j.main = {
         debug()
     }
 
+    off 'http11'
+    off 'support'
+    off 'core'
+    off 'connector'
+
     debug 'org.bboards'
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
@@ -125,3 +130,40 @@ log4j.main = {
 }
 
 bboard.photo.storage.home = "/tmp/board-photos"
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.bboards.admin.domains.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.bboards.admin.domains.UserRole'
+grails.plugin.springsecurity.authority.className = 'org.bboards.admin.domains.Role'
+grails.plugin.springsecurity.rejectIfNoRule = false
+grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+//grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+////	'/':                              ['permitAll'],
+////	'/*':                            ['permitAll'],
+//	'/**':                            ['permitAll'],
+////	'**/**':                            ['permitAll'],
+////	'/board/*':                            ['permitAll'],
+////	'**/board/*':                            ['permitAll'],
+////	'/board/**':                            ['permitAll'],
+////	'/index':                         ['permitAll'],
+////	'/index.gsp':                     ['permitAll'],
+////	'/assets/**':                     ['permitAll'],
+////	'/**/js/**':                      ['permitAll'],
+////	'/**/css/**':                     ['permitAll'],
+////	'/**/images/**':                  ['permitAll'],
+////	'/**/favicon.ico':                ['permitAll']
+//]
+
+grails.plugin.springsecurity.securityConfigType = 'Annotation'
+//grails.plugin.springsecurity.interceptUrlMap = [
+//        '/':                              ['permitAll'],
+//        '/board/**':                              ['permitAll'],
+//        '/index':                         ['permitAll'],
+//        '/index.gsp':                     ['permitAll'],
+//        '/**/js/**':                      ['permitAll'],
+//        '/**/css/**':                     ['permitAll'],
+//        '/**/images/**':                  ['permitAll'],
+//        '/**/favicon.ico':                ['permitAll'],
+//        '/login/**':                      ['permitAll'],
+//        '/logout/**':                     ['permitAll']
+//]

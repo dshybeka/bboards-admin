@@ -1,5 +1,6 @@
 package org.bboards.admin.domains
 
+import com.google.common.collect.Lists
 import org.bboards.admin.domains.enums.Surface
 import org.bson.types.ObjectId
 
@@ -27,7 +28,7 @@ class Board {
 
     BigDecimal installationPrice
 
-    Timetable timetables
+    List<Timetable> timetables = Lists.newArrayList()
 
     String notes
 
@@ -41,9 +42,9 @@ class Board {
 
     Boolean stops
 
-    String entertainmentCenters
+//    String entertainmentCenters
 
-    Boolean trafficLlight
+    Boolean trafficLight
 
     Boolean pedestrianCrossings
 
@@ -57,9 +58,11 @@ class Board {
 
     Address address
 
+    List<String> searchTags = Lists.newArrayList()
+
     static hasMany = [dayPhoto: Photo, nightPhoto: Photo]
 
-    static embedded = ['timetables', 'mapPosition', 'nightPhoto', 'dayPhoto', 'address']
+    static embedded = ['timetables', 'mapPosition', 'nightPhoto', 'dayPhoto', 'address', 'searchTags']
 
     static mapWith = "mongo"
 
@@ -71,13 +74,21 @@ class Board {
     }
 
     static constraints = {
+
         boardFormat nullable: true
+
         address nullable: true
+
         dayPhoto nullable: true
+
         sides nullable: true
+
         sideDirections nullable: true
+
         nightPhoto nullable: true
+
         surface nullable: true
+
         installationPrice nullable: true
 
         range nullable: true
@@ -106,9 +117,11 @@ class Board {
 
         stops nullable: true
 
-        entertainmentCenters nullable: true
+//        entertainmentCenters nullable: true
 
-        trafficLlight nullable: true
+        searchTags nullable: true
+
+        trafficLight nullable: true
 
         pedestrianCrossings nullable: true
 

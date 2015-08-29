@@ -1,10 +1,12 @@
 package org.bboards.admin
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import org.bboards.admin.domains.Board
 import org.bboards.admin.domains.Photo
 
 @Transactional(readOnly = true)
+@Secured("ROLE_USER")
 class PhotoController {
 
     def photoStoreService

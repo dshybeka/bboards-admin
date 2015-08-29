@@ -1,25 +1,29 @@
 package org.bboards.admin
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import org.bboards.admin.domains.Board
 
 import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
+@Secured("ROLE_USER")
 class BoardController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured("ROLE_USER")
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Board.list(params), model:[boardInstanceCount: Board.count()]
     }
 
+    @Secured("ROLE_USER")
     def show(Board boardInstance) {
         respond boardInstance
     }
 
-
+    @Secured("ROLE_USER")
     def showFromParams() {
 
         assert params.boardId, "Board id should be presented"
@@ -29,10 +33,12 @@ class BoardController {
         render view: "show", model: [boardInstance: boardInstance]
     }
 
+    @Secured("ROLE_USER")
     def create() {
         respond new Board(params)
     }
 
+    @Secured("ROLE_USER")
     @Transactional
     def save(Board boardInstance) {
         if (boardInstance == null) {
@@ -58,11 +64,13 @@ class BoardController {
         }
     }
 
+    @Secured("ROLE_USER")
     def edit(Board boardInstance) {
         log.info "Show edit page for board: ${boardInstance?.id}"
         respond boardInstance
     }
 
+    @Secured("ROLE_USER")
     @Transactional
     def update(Board boardInstance) {
 
@@ -87,6 +95,7 @@ class BoardController {
         }
     }
 
+    @Secured("ROLE_USER")
     @Transactional
     def delete(Board boardInstance) {
 
